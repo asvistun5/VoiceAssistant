@@ -18,11 +18,11 @@ class Frame(QFrame):
 
         if layout == "horizontal":
             self.lay = QHBoxLayout()
+            self.lay.addStretch()
         elif layout == "vertical":
             self.lay = QVBoxLayout()
             self.lay.setAlignment(Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft)
-
-        self.lay.addStretch()
+        
         self.setLayout(self.lay)
 
     def addWidget(self, widget):

@@ -21,7 +21,7 @@ class MainWindow(MainWindow):
             QFrame#Frame {
                 background-color: #f9f9f9;
                 border: 1px solid #ccc;
-                border-radius: 8px;
+                border-radius: 13px;
             }
         """)
 
@@ -46,10 +46,9 @@ class MainWindow(MainWindow):
         #Commands
         self.commands_frame = Frame(style=Frame.Shape.StyledPanel)
         self.commands_frame.setStyleSheet("""
-            background-color: #f0f0f0;
+            background-color: #e8e8e8;
             padding: 4px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 13px;
         """)
         self.commands_frame.lay.setContentsMargins(10, 10, 10, 10)
         self.commands_frame.setFixedWidth(300)

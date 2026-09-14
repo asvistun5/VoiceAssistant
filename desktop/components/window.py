@@ -2,6 +2,8 @@ from PyQt6.QtCore import QProcess
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import Qt
 
+import os, sys
+
 from qframelesswindow import FramelessMainWindow
 
 
@@ -25,11 +27,12 @@ class MainWindow(FramelessMainWindow):
         menuBar = QMenuBar(self.titleBar)
         menu = QMenu('Assistant', self)
         menu.addAction('Set name', self.set_name)
+        menu.addAction('Settings', self.open_settings)
         menu.addAction('Exit', self.close)
         menuBar.addMenu(menu)
-        menuBar.addAction('Start', self.start_assintant)
-        menuBar.addAction('Stop', self.stop_assintant)
-        menuBar.addAction('Restart', self.restart_assintant)
+        self.start_act = menuBar.addAction('Start', self.start_assintant)
+        self.stop_act = menuBar.addAction('Stop', self.stop_assintant)
+        self.restart_act = menuBar.addAction('Restart', self.restart_assintant)
         self.titleBar.layout().insertWidget(0, menuBar, 0, Qt.AlignmentFlag.AlignLeft)
         self.titleBar.layout().insertStretch(1, 1)
         self.setMenuWidget(self.titleBar)
@@ -53,8 +56,8 @@ class MainWindow(FramelessMainWindow):
         print(manage_py)
 
         
-        self.start_btn.setEnabled(True)
-        self.stop_btn.setEnabled(False)
+        self.start_act.setEnabled(True)
+        self.stop_act.setEnabled(False)
 
     def restart_assintant(self):
         print("restart_assintant")
@@ -81,13 +84,8 @@ class MainWindow(FramelessMainWindow):
         self.assistant_process.deleteLater()
         self.assistant_process = None
 
-        self.start_btn.setEnabled(True)
-        self.stop_btn.setEnabled(False)
-
-    def set_name(self):
-        name, ok = QInputDialog.getText(self, "Set Name", "Enter name:")
-        if ok and name:
-            print(f"Name set to: {name}")
+        self.start_act.setEnabled(True)
+        self.stop_act.setEnabled(False)
 
     def closeEvent(self, event):
         if self.assistant_process is not None:
@@ -95,6 +93,15 @@ class MainWindow(FramelessMainWindow):
             if not self.assistant_process.waitForFinished(3000):
                 self.assistant_process.kill()
         event.accept()
+
+    def set_name(self):
+        name, ok = QInputDialog.getText(self, "Set Name", "Enter name:")
+        if ok and name:
+            print(f"Name set to: {name}")
+
+    def open_settings(self):
+        print("Opening settings...")
+
 
 
 QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)

@@ -1,5 +1,3 @@
-import sys
-import os, subprocess
 import PyQt6 as qt
 
 from PyQt6.QtWidgets import *
